@@ -1,0 +1,237 @@
+<!-- index.html (replace your current file with this) -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FurnishPro — Store Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] },
+            colors: {
+              brand:{DEFAULT:'#2F52EB',50:'#EEF2FF',100:'#E3E9FF',600:'#2F52EB'}
+            },
+            boxShadow:{
+              soft:'0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.10)',
+              card:'0 8px 24px rgba(16,24,40,.06)'
+            },
+            borderRadius:{pill:'9999px',xl2:'1.25rem'}
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="./assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <div id="fp-backdrop" class="fixed inset-0 z-30 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity duration-200 lg:hidden"></div>
+
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-[300px] flex flex-col border-r bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 transform -translate-x-full transition-transform duration-200 lg:static lg:translate-x-0">
+        <div class="h-16 flex items-center gap-3 px-6 border-b">
+          <div class="h-10 w-10 grid place-items-center rounded-xl bg-brand-600 text-white shadow-soft">FP</div>
+          <div class="leading-5">
+            <div class="font-semibold">FurnishPro</div>
+            <div class="text-xs text-slate-500 -mt-0.5">Management</div>
+          </div>
+          <button id="fp-close" class="ml-auto p-2 rounded-lg hover:bg-slate-100 lg:hidden" aria-label="Close menu">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+
+        <nav class="px-4 py-4 overflow-y-auto">
+          <a href="#/dashboard" data-route="dashboard" class="nav-link nav-link--primary is-active">
+            <i data-lucide="grip"></i><span>Dashboard</span>
+          </a>
+
+          <div class="nav-group" data-group="customers">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="users"></i>
+              <span>Customer Management</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+          
+            <div class="nav-sub">
+              <a href="#/customers/new"  data-route="customers-new"  class="nav-sublink">Add Customer</a>
+              <a href="#/customers/list" data-route="customers-list" class="nav-sublink">Customer List</a>
+            </div>
+          </div>
+          
+
+          <div class="nav-group" data-group="orders">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="file-text"></i>
+              <span>Order Management</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+            <div class="nav-sub">
+              <a href="#/orders/new" data-route="orders-new" class="nav-sublink">New Order</a>
+              <a href="#/orders/list" data-route="orders-list" class="nav-sublink">Order List</a>
+            </div>
+          </div>
+          
+
+          <div class="nav-group" data-group="product">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="cube"></i><span>Product Catalogue</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+            <div class="nav-sub">
+              <a href="#/products/new" data-route="products-new" class="nav-sublink">Add Product</a>
+              <a href="#/products" data-route="products" class="nav-sublink">Product List</a>
+            </div>
+          </div>
+
+          <div class="nav-group" data-group="measurements">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="ruler"></i>
+              <span>Measurements</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+          
+            <div class="nav-sub">
+              <a href="#/measurements/new" data-route="measurements-new" class="nav-sublink">
+                Add Measurements
+              </a>
+              <a href="#/measurements/list" data-route="measurements" class="nav-sublink">
+                Measurement List
+              </a>
+            </div>
+          </div>
+          
+
+          <!-- Sidebar: Vendor & Transport -->
+          <div class="nav-group" data-group="vendor">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="truck"></i>
+              <span>Vendor & Transport</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+
+            <div class="nav-sub">
+              <a href="#/vendor/orders"   data-route="vendor/orders"   class="nav-sublink">Vendor Orders</a>
+              <a href="#/vendor/tracking" data-route="vendor/tracking" class="nav-sublink">Transport Tracking</a>
+            </div>
+          </div>
+          
+          <div class="nav-group" data-group="tailor">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="scissors"></i>
+              <span>Tailor Management</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+            <div class="nav-sub">
+              <a href="#/tailor/assign" data-route="tailor-assign" class="nav-sublink">Assign Tailor</a>
+              <a href="#/tailor/list" data-route="tailor-list" class="nav-sublink">Tailor List</a>
+            </div>
+          </div>
+          
+
+          <div class="nav-group" data-group="delivery">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="map-pin"></i>
+              <span>Delivery Management</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+            <div class="nav-sub">
+              <a href="#/delivery/assign" data-route="delivery-assign" class="nav-sublink">Assign Delivery</a>
+              <a href="#/delivery/status" data-route="delivery-status" class="nav-sublink">Delivery Status</a>
+            </div>
+          </div>
+          
+
+          <div class="nav-group" data-group="payments">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="credit-card"></i>
+              <span>Payments & Billing</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+          
+            <div class="nav-sub">
+              <a href="#/payments/entry"    data-route="payments-entry" class="nav-sublink">Payment Entry</a>
+              <a href="#/payments/invoices" data-route="payments-invoices" class="nav-sublink">Invoice Generation</a>
+            </div>
+          </div>          
+
+          <!-- Reports & Analytics -->
+          <div class="nav-group" data-group="reports">
+            <button class="nav-link nav-link--group">
+              <i data-lucide="bar-chart-3"></i>
+              <span>Reports & Analytics</span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+
+            <div class="nav-sub">
+              <a href="#/reports/order-status" data-route="reports-order" class="nav-sublink">Order Status</a>
+              <a href="#/reports/delay"         data-route="reports-delay" class="nav-sublink">Delay Analysis</a>
+              <a href="#/reports/payments"      data-route="reports-pay"   class="nav-sublink">Payment Tracking</a>
+              <a href="#/reports/complaints"    data-route="reports-compl" class="nav-sublink">Complaint Log</a>
+            </div>
+          </div>
+
+        </nav>
+      </aside>
+
+      <!-- Main -->
+      <main class="flex-1 flex flex-col">
+        <header class="h-16 bg-white border-b px-4 lg:px-6 flex items-center gap-3">
+          <button id="menuBtn" class="lg:hidden p-2 rounded-lg hover:bg-slate-100" aria-label="Open menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="relative max-w-xl w-full">
+            <i data-lucide="search" class="absolute left-3 top-2.5 h-5 w-5 text-slate-400"></i>
+            <input class="pl-10 pr-4 py-2 w-full rounded-xl border bg-white focus:outline-none focus:ring-4 focus:ring-brand-100" placeholder="Search orders, customers, products..." />
+          </div>
+          <div class="ml-auto flex items-center gap-4">
+            <button class="p-2 rounded-lg hover:bg-slate-100"><i data-lucide="bell"></i></button>
+            <div class="h-9 w-9 rounded-full bg-gradient-to-br from-brand-600 to-indigo-600 grid place-items-center text-white text-sm">AS</div>
+          </div>
+        </header>
+
+        <section id="app" class="p-4 lg:p-6 space-y-6"></section>
+      </main>
+    </div>
+
+    <script>
+      const sidebar  = document.getElementById('sidebar');
+      const backdrop = document.getElementById('fp-backdrop');
+      const openBtn  = document.getElementById('menuBtn');
+      const closeBtn = document.getElementById('fp-close');
+
+      const openDrawer = () => { sidebar.classList.remove('-translate-x-full'); backdrop.classList.remove('pointer-events-none','opacity-0'); };
+      const closeDrawer = () => { sidebar.classList.add('-translate-x-full'); backdrop.classList.add('pointer-events-none','opacity-0'); };
+      openBtn?.addEventListener('click', openDrawer);
+      closeBtn?.addEventListener('click', closeDrawer);
+      backdrop?.addEventListener('click', closeDrawer);
+      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
+
+      document.querySelectorAll('.nav-group > .nav-link--group').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const g = btn.parentElement;
+          g.classList.toggle('is-open');
+        });
+      });
+
+      window.addEventListener('load', ()=>{ if(window.lucide?.createIcons) lucide.createIcons(); });
+    </script>
+
+    <script src="./assets/app.js"></script>
+    <script src="./assets/measurements.js"></script>
+    <script src="./assets/vendor.js"></script>
+    <script src="./assets/tailor.js"></script>
+    <script src="./assets/delivery.js"></script>
+    <script src="./assets/orders.js"></script>
+    <script src="./assets/payments.js"></script>
+    <script src="./assets/reports.js"></script>
+    <script src="./assets/customers.js"></script>
+  </body>
+</html>

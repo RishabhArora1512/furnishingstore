@@ -1,0 +1,45 @@
+/* assets/style.css (replace your current file with this) */
+:root{--brand:#2F52EB}
+*{box-sizing:border-box}
+.nav-link{display:flex;align-items:center;gap:.875rem;padding:.875rem 1rem;border-radius:1rem;color:#0f172a;font-weight:600;line-height:1.1;transition:background .15s,color .15s}
+.nav-link i{height:20px;width:20px}
+.nav-link:hover{background:#F1F5FF}
+.nav-link--primary{margin-bottom:.5rem;padding:.95rem 1.1rem;border-radius:999px}
+.nav-link--primary.is-active{background:var(--brand);color:#fff}
+.nav-link--primary.is-active i{color:#fff}
+.nav-link .arr{margin-left:auto;opacity:.5}
+.nav-link--group{width:100%;background:transparent}
+.nav-group{margin-top:.25rem;margin-bottom:.25rem}
+.nav-group .chev{margin-left:auto;transition:transform .15s}
+.nav-group.is-open .chev{transform:rotate(180deg)}
+.nav-sub{display:grid;grid-template-columns:1fr;gap:.35rem;padding:.35rem 0 .75rem .5rem;margin-left:.5rem;border-left:2px solid #EEF2FF}
+.nav-group:not(.is-open) .nav-sub{display:none}
+.nav-sublink{display:block;color:#64748b;font-weight:600;padding:.6rem 1rem;border-radius:.75rem}
+.nav-sublink:hover{background:#F6F8FF;color:#1f2937}
+.nav-section{font-size:.75rem;color:#94a3b8;font-weight:600;padding:.75rem .5rem .25rem}
+.card{background:#fff;border-radius:1rem;box-shadow:0 8px 24px rgba(16,24,40,.06);border:1px solid #e2e8f0}
+.kpi{display:flex;flex-direction:column;gap:.25rem;padding:1rem}
+.kpi .title{font-size:.875rem;color:#64748b}
+.kpi .value{font-size:1.75rem;font-weight:700}
+.badge{font-size:.75rem;border-radius:999px;padding:.125rem .5rem}
+.stat-list .item{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-radius:.75rem;border:1px solid #e2e8f0;background:#fff}
+.table{width:100%;border-collapse:separate;border-spacing:0 .5rem}
+.table thead th{font-size:.75rem;color:#64748b;text-align:left;padding:.25rem .75rem}
+.table tbody tr{background:#fff}
+.table tbody td{padding:.75rem}
+.shadow-card{box-shadow:0 6px 20px rgba(2,6,23,.06)}
+/* ===== FurnishPro modal styles ===== */
+.fp-modal-wrap{display:flex;align-items:center;justify-content:center}
+.fp-modal-backdrop{background:rgba(15,23,42,.45);backdrop-filter:saturate(110%) blur(4px)}
+.fp-modal-panel{max-width:680px;width:92%;border-radius:16px;background:#fff;border:1px solid #e5e7eb;
+  box-shadow:0 20px 60px rgba(2,6,23,.18),0 2px 10px rgba(2,6,23,.08)}
+.fp-modal{display:flex;flex-direction:column;gap:16px;padding:20px 22px}
+.fp-modal .m-head{display:flex;align-items:center;justify-content:space-between}
+.fp-modal .m-title{font-weight:600;font-size:16px}
+.fp-modal .m-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+.fp-input,.fp-select,.fp-textarea{width:100%;border:1px solid #e5e7eb;border-radius:12px;padding:10px 12px;background:#fff}
+.fp-textarea{resize:vertical}
+.btn{border-radius:12px;padding:9px 14px;font-weight:600}
+.btn-primary{background:#2563eb;color:#fff}
+.btn-primary:hover{background:#1d4ed8}
+.btn-ghost{background:#fff;border:1px solid #e5e7eb}
