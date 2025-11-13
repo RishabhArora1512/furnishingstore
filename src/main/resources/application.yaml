@@ -1,3 +1,30 @@
 spring:
   application:
     name: storemanagement
+
+  cloud:
+    vault:
+      enabled: false
+    zookeeper:
+      config:
+        enabled: false
+        import-check:
+          enabled: false
+  docker:
+    compose:
+      enabled: false
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiAudioTranscriptionAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiAudioSpeechAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiChatAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiEmbeddingAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiImageAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiTextAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiVideoAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiVisionAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiAudioAutoConfiguration
+      - org.springframework.ai.model.openai.autoconfigure.OpenAiModerationAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.cloud.zookeeper.config.ZookeeperConfigAutoConfiguration
+      - org.springframework.cloud.zookeeper.ZookeeperAutoConfiguration
