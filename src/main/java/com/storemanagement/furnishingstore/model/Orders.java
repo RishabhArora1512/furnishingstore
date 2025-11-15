@@ -37,6 +37,8 @@ public class Orders {
     private Instant createdAt = Instant.now();
     private Instant updatedAt = Instant.now();
 
+    private String orderCode;
+
     @PreUpdate
     void touch() {
         updatedAt = Instant.now();
