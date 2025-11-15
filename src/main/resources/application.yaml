@@ -25,6 +25,28 @@ spring:
       - org.springframework.ai.model.openai.autoconfigure.OpenAiVisionAutoConfiguration
       - org.springframework.ai.model.openai.autoconfigure.OpenAiAudioAutoConfiguration
       - org.springframework.ai.model.openai.autoconfigure.OpenAiModerationAutoConfiguration
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
       - org.springframework.cloud.zookeeper.config.ZookeeperConfigAutoConfiguration
       - org.springframework.cloud.zookeeper.ZookeeperAutoConfiguration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/furnishdb   # or your DB name/host
+    username: postgres                                # change as needed
+    password: postgres                           # change as needed
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate          # or 'update' while developing; 'validate' + Flyway in prod
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        format_sql: false
+
+  flyway:
+    enabled: false                 # if you have db/migration scripts
+    locations: classpath:db/migration
+    validate-on-migration: false
