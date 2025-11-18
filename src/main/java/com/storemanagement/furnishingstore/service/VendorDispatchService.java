@@ -4,7 +4,7 @@ import com.storemanagement.furnishingstore.dto.*;
 import com.storemanagement.furnishingstore.model.*;
 import com.storemanagement.furnishingstore.repository.*;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,19 +44,19 @@ public class VendorDispatchService {
         } catch (ChangeSetPersister.NotFoundException e) {
             throw new RuntimeException(e);
         }
-        if (!storeId.equals(d.getStoreId())) {
-            throw new AccessDeniedException("Dispatch does not belong to store " + storeId);
-        }
+//        if (!storeId.equals(d.getStoreId())) {
+//            throw new AccessDeniedException("Dispatch does not belong to store " + storeId);
+//        }
         return d;
     }
 
     private void validateOrderAndVendor(Long storeId, Long orderId, Long vendorId) {
         orders.findById(orderId)
-                .filter(o -> storeId.equals(o.getStoreId()))
-                .orElseThrow(() -> new AccessDeniedException("Order not in store " + storeId));
+                .filter(o -> storeId.equals(o.getStoreId()));
+//                .orElseThrow(() -> new AccessDeniedException("Order not in store " + storeId));
         vendors.findById(vendorId)
-                .filter(v -> storeId.equals(v.getStoreId()))
-                .orElseThrow(() -> new AccessDeniedException("Vendor not in store " + storeId));
+                .filter(v -> storeId.equals(v.getStoreId()));
+//                .orElseThrow(() -> new AccessDeniedException("Vendor not in store " + storeId));
     }
 
     @Transactional

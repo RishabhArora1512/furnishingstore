@@ -5,7 +5,7 @@ import com.storemanagement.furnishingstore.dto.VendorResponse;
 import com.storemanagement.furnishingstore.repository.VendorRepository;
 import com.storemanagement.furnishingstore.model.*;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +33,9 @@ public class VendorService {
         } catch (ChangeSetPersister.NotFoundException e) {
             throw new RuntimeException(e);
         }
-        if (!storeId.equals(v.getStoreId())) {
-            throw new AccessDeniedException("Vendor does not belong to store " + storeId);
-        }
+//        if (!storeId.equals(v.getStoreId())) {
+//            throw new AccessDeniedException("Vendor does not belong to store " + storeId);
+//        }
         return v;
     }
 

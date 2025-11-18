@@ -4,7 +4,7 @@ import com.storemanagement.furnishingstore.dto.*;
 import com.storemanagement.furnishingstore.model.*;
 import com.storemanagement.furnishingstore.repository.*;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,9 +31,9 @@ public class DeliveryStaffService {
         Long storeId = requireStore();
         DeliveryStaff s = staffRepo.findById(id)
                 .orElseThrow(ChangeSetPersister.NotFoundException::new);
-        if (!storeId.equals(s.getStoreId())) {
-            throw new AccessDeniedException("Staff does not belong to store " + storeId);
-        }
+//        if (!storeId.equals(s.getStoreId())) {
+//            throw new AccessDeniedException("Staff does not belong to store " + storeId);
+//        }
         return s;
     }
 

@@ -11,7 +11,7 @@ import com.storemanagement.furnishingstore.repository.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
@@ -118,8 +118,8 @@ public class OrderService {
 
         if (req.customerId != null && !req.customerId.equals(o.getCustomerId())) {
             customers.findById(req.customerId)
-                    .filter(c -> storeId.equals(c.getStoreId()))
-                    .orElseThrow(() -> new AccessDeniedException("Customer does not belong to store " + storeId));
+                    .filter(c -> storeId.equals(c.getStoreId()));
+//                    .orElseThrow(() -> new AccessDeniedException("Customer does not belong to store " + storeId));
             o.setCustomerId(req.customerId);
         }
 

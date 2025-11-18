@@ -4,7 +4,7 @@ import com.storemanagement.furnishingstore.dto.*;
 import com.storemanagement.furnishingstore.repository.*;
 import com.storemanagement.furnishingstore.model.*;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,9 +43,9 @@ public class DeliveryAssignmentService {
         } catch (ChangeSetPersister.NotFoundException e) {
             throw new RuntimeException(e);
         }
-        if (!storeId.equals(d.getStoreId())) {
-            throw new AccessDeniedException("Delivery does not belong to store " + storeId);
-        }
+//        if (!storeId.equals(d.getStoreId())) {
+//            throw new AccessDeniedException("Delivery does not belong to store " + storeId);
+//        }
         return d;
     }
 
@@ -57,9 +57,9 @@ public class DeliveryAssignmentService {
         } catch (ChangeSetPersister.NotFoundException e) {
             throw new RuntimeException(e);
         }
-        if (!storeId.equals(order.getStoreId())) {
-            throw new AccessDeniedException("Order not in store " + storeId);
-        }
+//        if (!storeId.equals(order.getStoreId())) {
+//            throw new AccessDeniedException("Order not in store " + storeId);
+//        }
 
         DeliveryStaff staff = null;
         try {
@@ -68,9 +68,9 @@ public class DeliveryAssignmentService {
         } catch (ChangeSetPersister.NotFoundException e) {
             throw new RuntimeException(e);
         }
-        if (!storeId.equals(staff.getStoreId())) {
-            throw new AccessDeniedException("Staff not in store " + storeId);
-        }
+//        if (!storeId.equals(staff.getStoreId())) {
+//            throw new AccessDeniedException("Staff not in store " + storeId);
+//        }
     }
 
     @Transactional

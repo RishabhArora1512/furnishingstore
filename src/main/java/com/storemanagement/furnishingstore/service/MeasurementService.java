@@ -8,7 +8,7 @@ import com.storemanagement.furnishingstore.repository.MeasurementRepository;
 import com.storemanagement.furnishingstore.repository.OrderRepository;
 import java.util.List;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,18 +27,18 @@ public class MeasurementService {
     private Orders loadOrderForStore(Long orderId, Long storeId) throws ChangeSetPersister.NotFoundException {
         Orders o = orders.findById(orderId)
                 .orElseThrow(ChangeSetPersister.NotFoundException::new);
-        if (!storeId.equals(o.getStoreId())) {
-            throw new AccessDeniedException("Order does not belong to store " + storeId);
-        }
+//        if (!storeId.equals(o.getStoreId())) {
+//            throw new AccessDeniedException("Order does not belong to store " + storeId);
+//        }
         return o;
     }
 
     private Measurement loadMeasurementForStore(Long measurementId, Long storeId) throws ChangeSetPersister.NotFoundException {
         Measurement m = measurements.findById(measurementId)
                 .orElseThrow(ChangeSetPersister.NotFoundException::new);
-        if (!storeId.equals(m.getStoreId())) {
-            throw new AccessDeniedException("Measurement does not belong to store " + storeId);
-        }
+//        if (!storeId.equals(m.getStoreId())) {
+//            throw new AccessDeniedException("Measurement does not belong to store " + storeId);
+//        }
         return m;
     }
 
