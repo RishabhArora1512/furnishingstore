@@ -6,42 +6,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tailor_staff")
+@Table(name = "staff")
 @Getter
 @Setter
-public class TailorStaff {
+public class Staff {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Multi-store support
     @Column(name = "store_id", nullable = false)
     private Long storeId;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    // e.g. TAILOR-001
-    @Column(name = "code", nullable = false, unique = true)
-    private String code;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, length = 50)
+    private StaffRole role;
 
-    // Curtains & Drapes, Upholstery & Furniture, etc.
-    @Column(name = "specialty")
-    private String specialty;
-
-    @Column(name = "experience_years")
-    private Integer experienceYears;
-
-    @Column(name = "phone")
+    @Column(name = "phone", length = 50)
     private String phone;
-
-    @Column(name = "rating")
-    private Double rating;
-
-    // true = Available, false = Busy
-    @Column(name = "available")
-    private Boolean available = Boolean.TRUE;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

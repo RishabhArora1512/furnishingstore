@@ -2,11 +2,10 @@ package com.storemanagement.furnishingstore.repository;
 
 import com.storemanagement.furnishingstore.model.DeliveryAssignment;
 import com.storemanagement.furnishingstore.model.DeliveryStatus;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DeliveryAssignmentRepository extends JpaRepository<DeliveryAssignment, Long> {
 

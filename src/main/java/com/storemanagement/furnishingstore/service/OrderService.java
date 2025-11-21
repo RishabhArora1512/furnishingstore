@@ -3,18 +3,16 @@ package com.storemanagement.furnishingstore.service;
 import com.storemanagement.furnishingstore.dto.CreateMeasurementRequest;
 import com.storemanagement.furnishingstore.dto.CreateOrderRequest;
 import com.storemanagement.furnishingstore.dto.UpdateOrderRequest;
-import com.storemanagement.furnishingstore.model.Customer;
-import com.storemanagement.furnishingstore.model.OrderStatus;
-import com.storemanagement.furnishingstore.model.Orders;
+import com.storemanagement.furnishingstore.model.*;
 import com.storemanagement.furnishingstore.repository.CustomerRepository;
 import com.storemanagement.furnishingstore.repository.OrderRepository;
+import com.storemanagement.furnishingstore.repository.StaffRepository;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.*;
 
 @Service
 public class OrderService {
@@ -24,13 +22,15 @@ public class OrderService {
     private final OrderRepository orders;
     private final CustomerRepository customers;
     private final PaymentService paymentService;
+    private final StaffRepository staffRepo;
 
     public OrderService(OrderRepository orders,
                         CustomerRepository customers,
-                        PaymentService paymentService) {
+                        PaymentService paymentService, StaffRepository staffRepo) {
         this.orders = orders;
         this.customers = customers;
         this.paymentService = paymentService;
+        this.staffRepo = staffRepo;
     }
 
     private Long requireStore() {
@@ -61,6 +61,7 @@ public class OrderService {
 
         Orders o = new Orders();
         o.setCustomerId(c.getId());
+        o.setStoreId(requireStore());
         o.setProductId(req.productId);
         o.setQuantity(req.quantity != null ? req.quantity : 1);
         o.setColorReference(req.colorReference);
@@ -181,11 +182,20 @@ public class OrderService {
     }
 
     @Transactional
-    public Orders assignMistri(Long orderId, Long mistriId) {
-        Orders o = loadForStore(orderId);
-        o.setAssignedMistriId(mistriId);
-        log.info("Assigned mistri {} to order {}", mistriId, orderId);
-        return orders.save(o);
+    public Orders assignMistri(Long orderId, Long staffId) {
+        Orders order = orders.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
+
+        Staff staff = staffRepo.findById(staffId)
+                .orElseThrow(() -> new RuntimeException("Staff not found: " + staffId));
+
+        if (staff.getRole() != StaffRole.MISTRI) {
+            throw new RuntimeException("Staff " + staffId + " is not a MISTRI");
+        }
+
+        order.setAssignedMistriId(staffId);
+
+        return orders.save(order);
     }
 
     @Transactional

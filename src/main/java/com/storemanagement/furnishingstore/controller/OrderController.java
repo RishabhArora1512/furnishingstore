@@ -6,10 +6,9 @@ import com.storemanagement.furnishingstore.dto.UpdateOrderRequest;
 import com.storemanagement.furnishingstore.model.OrderStatus;
 import com.storemanagement.furnishingstore.model.Orders;
 import com.storemanagement.furnishingstore.service.OrderService;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/orders")

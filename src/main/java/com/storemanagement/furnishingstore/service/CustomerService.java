@@ -3,6 +3,7 @@ package com.storemanagement.furnishingstore.service;
 import com.storemanagement.furnishingstore.dto.CreateCustomerRequest;
 import com.storemanagement.furnishingstore.model.Customer;
 import com.storemanagement.furnishingstore.repository.CustomerRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,5 +21,14 @@ public class CustomerService {
         c.setStoreId(createCustomerRequest.getStoreId());
         c.setMeta(createCustomerRequest.getMeta());
         return customerRepository.save(c);
+    }
+
+    public Customer getById(Long id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found: " + id));
+    }
+
+    public List<Customer> list() {
+        return customerRepository.findAll();
     }
 }

@@ -8,7 +8,6 @@ import com.storemanagement.furnishingstore.repository.MeasurementRepository;
 import com.storemanagement.furnishingstore.repository.OrderRepository;
 import java.util.List;
 import org.springframework.data.crossstore.ChangeSetPersister;
-//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,15 +43,11 @@ public class MeasurementService {
 
     @Transactional
     public Measurement create(CreateMeasurementRequest req) {
-        Orders order = null;
-        try {
-            order = loadOrderForStore(req.orderId, requireStore());
-        } catch (ChangeSetPersister.NotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        Orders order = orders.findById(req.orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found: " + req.orderId));
 
         Measurement m = new Measurement();
-        m.setStoreId(requireStore());
+        m.setStoreId(order.getStoreId()); // reuse storeId from order
         m.setOrderId(req.orderId);
         m.setRoomArea(req.roomArea);
         m.setMeasurementType(req.measurementType);
@@ -70,6 +65,7 @@ public class MeasurementService {
 
         return saved;
     }
+
 
     @Transactional(readOnly = true)
     public List<Measurement> listByOrder(Long orderId) {

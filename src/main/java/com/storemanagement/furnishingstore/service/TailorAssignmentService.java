@@ -3,11 +3,10 @@ package com.storemanagement.furnishingstore.service;
 import com.storemanagement.furnishingstore.dto.*;
 import com.storemanagement.furnishingstore.model.*;
 import com.storemanagement.furnishingstore.repository.*;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TailorAssignmentService {

@@ -1,8 +1,7 @@
 package com.storemanagement.furnishingstore.dto;
 
-import lombok.Data;
-
 import java.time.LocalDate;
+import lombok.Data;
 
 @Data
 public class CreateTailorAssignmentRequest {

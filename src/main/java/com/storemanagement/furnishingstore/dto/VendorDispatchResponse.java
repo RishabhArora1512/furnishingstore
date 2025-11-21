@@ -1,10 +1,9 @@
 package com.storemanagement.furnishingstore.dto;
 
-import lombok.Data;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class VendorDispatchResponse {
@@ -25,4 +24,3 @@ public class VendorDispatchResponse {
 
     public List<TrackingEventResponse> trackingEvents;
 }
-

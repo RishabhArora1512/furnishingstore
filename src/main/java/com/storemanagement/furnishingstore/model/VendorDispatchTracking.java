@@ -1,9 +1,8 @@
 package com.storemanagement.furnishingstore.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
 import java.time.Instant;
+import lombok.Data;
 
 @Entity
 @Data

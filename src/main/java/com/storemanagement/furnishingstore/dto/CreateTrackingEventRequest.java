@@ -1,8 +1,7 @@
 package com.storemanagement.furnishingstore.dto;
 
-import lombok.Data;
-
 import java.time.Instant;
+import lombok.Data;
 
 @Data
 public class CreateTrackingEventRequest {

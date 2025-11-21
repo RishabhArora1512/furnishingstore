@@ -3,14 +3,13 @@ package com.storemanagement.furnishingstore.service;
 import com.storemanagement.furnishingstore.dto.TailorStaffRequest;
 import com.storemanagement.furnishingstore.dto.TailorStaffResponse;
 import com.storemanagement.furnishingstore.dto.TailorStatsResponse;
-import com.storemanagement.furnishingstore.model.TailorStaff;
 import com.storemanagement.furnishingstore.model.TailorAssignmentStatus;
-import com.storemanagement.furnishingstore.repository.TailorStaffRepository;
+import com.storemanagement.furnishingstore.model.TailorStaff;
 import com.storemanagement.furnishingstore.repository.TailorAssignmentRepository;
-import org.springframework.stereotype.Service;
-
+import com.storemanagement.furnishingstore.repository.TailorStaffRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TailorStaffService {

@@ -1,10 +1,9 @@
 package com.storemanagement.furnishingstore.repository;
 
 import com.storemanagement.furnishingstore.model.TailorStaff;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface TailorStaffRepository extends JpaRepository<TailorStaff, Long> {
