@@ -14,18 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class DeliveryAssignmentService {
 
     private final DeliveryAssignmentRepository assignments;
-    private final DeliveryStaffRepository staffRepo;
+    private final DeliveryStaffRepository deliveryStaffRepository;
+    private final StaffRepository staffRepository;
     private final OrderRepository orderRepo;
     private final CustomerRepository customerRepo;
 
     public DeliveryAssignmentService(DeliveryAssignmentRepository assignments,
-                                     DeliveryStaffRepository staffRepo,
+                                     DeliveryStaffRepository deliveryStaffRepository,
                                      OrderRepository orderRepo,
-                                     CustomerRepository customerRepo) {
+                                     CustomerRepository customerRepo,
+                                     StaffRepository staffRepository) {
         this.assignments = assignments;
-        this.staffRepo = staffRepo;
+        this.deliveryStaffRepository = deliveryStaffRepository;
         this.orderRepo = orderRepo;
         this.customerRepo = customerRepo;
+        this.staffRepository = staffRepository;
     }
 
     private Long requireStore() {
@@ -55,7 +58,7 @@ public class DeliveryAssignmentService {
             throw new IllegalArgumentException("Order " + orderId + " does not belong to store " + storeId);
         }
 
-        DeliveryStaff staff = staffRepo.findById(staffId)
+        Staff staff = staffRepository.findById(staffId)
                 .orElseThrow(() -> new IllegalArgumentException("Staff not found: " + staffId));
 
         if (!staff.getStoreId().equals(storeId)) {
@@ -183,7 +186,7 @@ public class DeliveryAssignmentService {
 
         customerRepo.findById(d.getCustomerId()).ifPresent(c -> r.customerName = c.getName());
 
-        staffRepo.findById(d.getStaffId()).ifPresent(s -> {
+        deliveryStaffRepository.findById(d.getStaffId()).ifPresent(s -> {
             r.staffId = s.getId();
             r.staffName = s.getName();
         });
@@ -201,7 +204,7 @@ public class DeliveryAssignmentService {
 
         orderRepo.findById(d.getOrderId()).ifPresent(o -> r.orderCode = o.getOrderCode());
         customerRepo.findById(d.getCustomerId()).ifPresent(c -> r.customerName = c.getName());
-        staffRepo.findById(d.getStaffId()).ifPresent(s -> {
+        deliveryStaffRepository.findById(d.getStaffId()).ifPresent(s -> {
             r.staffId = s.getId();
             r.staffName = s.getName();
         });

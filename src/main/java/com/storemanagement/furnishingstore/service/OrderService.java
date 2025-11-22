@@ -194,6 +194,7 @@ public class OrderService {
         }
 
         order.setAssignedMistriId(staffId);
+        staff.setTasks((staff.getTasks() == null ? 0 : staff.getTasks()) + 1);
 
         return orders.save(order);
     }
