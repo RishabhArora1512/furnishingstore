@@ -22,6 +22,10 @@ public class PaymentService {
 
     @Transactional
     public Payment record(Long orderId, double amount, String type, String idemp, Long processedBy) {
+
+        Orders o = orders.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found: " + orderId));
+
         return payments.findByIdempotencyKey(idemp).orElseGet(() -> {
             Payment p = new Payment();
             p.setOrderId(orderId);
@@ -32,10 +36,9 @@ public class PaymentService {
             p.setProcessedBy(processedBy);
             Payment saved = payments.save(p);
 
-
-            Orders o = orders.findById(orderId).orElseThrow();
             if ("ADVANCE".equalsIgnoreCase(type)) {
-                o.setAdvanceAmount((o.getAdvanceAmount() == null ? 0.0 : o.getAdvanceAmount()) + amount);
+                Double current = (o.getAdvanceAmount() == null ? 0.0 : o.getAdvanceAmount());
+                o.setAdvanceAmount(current + amount);
                 o.setStatus(OrderStatus.ADVANCE_PAID);
             } else {
                 o.setFinalAmount(amount);
@@ -43,8 +46,8 @@ public class PaymentService {
             }
             orders.save(o);
 
-
             return saved;
         });
     }
+
 }

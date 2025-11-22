@@ -48,28 +48,21 @@ public class DeliveryAssignmentService {
     }
 
     private void validateOrderAndStaff(Long storeId, Long orderId, Long staffId) {
-        Orders order = null;
-        try {
-            order = orderRepo.findById(orderId)
-                    .orElseThrow(ChangeSetPersister.NotFoundException::new);
-        } catch (ChangeSetPersister.NotFoundException e) {
-            throw new RuntimeException(e);
-        }
-//        if (!storeId.equals(order.getStoreId())) {
-//            throw new AccessDeniedException("Order not in store " + storeId);
-//        }
+        Orders order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found: " + orderId));
 
-        DeliveryStaff staff = null;
-        try {
-            staff = staffRepo.findById(staffId)
-                    .orElseThrow(ChangeSetPersister.NotFoundException::new);
-        } catch (ChangeSetPersister.NotFoundException e) {
-            throw new RuntimeException(e);
+        if (!order.getStoreId().equals(storeId)) {
+            throw new IllegalArgumentException("Order " + orderId + " does not belong to store " + storeId);
         }
-//        if (!storeId.equals(staff.getStoreId())) {
-//            throw new AccessDeniedException("Staff not in store " + storeId);
-//        }
+
+        DeliveryStaff staff = staffRepo.findById(staffId)
+                .orElseThrow(() -> new IllegalArgumentException("Staff not found: " + staffId));
+
+        if (!staff.getStoreId().equals(storeId)) {
+            throw new IllegalArgumentException("Staff " + staffId + " does not belong to store " + storeId);
+        }
     }
+
 
     @Transactional
     public DeliveryAssignmentResponse create(CreateDeliveryAssignmentRequest req) {
